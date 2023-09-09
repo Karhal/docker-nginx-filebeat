@@ -2,3 +2,4 @@
 2. Start elk suite
 3. docker network inspect elk_network
 4. Change IP's in the filebeat.yml
+5. Go to kibana -> Discover -> Create Dataview
