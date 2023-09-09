@@ -1,0 +1,37 @@
+version: '3.2'
+
+services:
+  nginx:
+    image: nginx:alpine
+    volumes:
+ #     - ./nginx/config:/etc/nginx/conf.d
+      - ./nginx/log:/var/log/nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - elk_network
+
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.9.2
+    entrypoint: "filebeat -e -strict.perms=false"
+    volumes:
+      - ./filebeat/config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - ./nginx/log:/var/log/nginx
+    depends_on: 
+      - nginx
+    networks:
+      - elk_network
+
+
+#networks:
+#  elk:
+#    driver: bridge
+
+networks:
+  elk_network:
+    external: true
+    name: elk_network
+
+volumes:
+  elasticsearch:

@@ -1,0 +1,20 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/nginx/*.log
+
+output.logstash:
+  enabled: true
+  hosts: ["172.24.0.4:5044"]
+  # FIXME: Cannot reach the hosts of Logstash
+
+#output.elasticsearch:
+#   enabled: true
+#   hosts: ["172.24.0.2:9200"]
+#   username: "elastic"
+#   password: "changeme"
+setup.kibana:
+  host: "172.24.0.3:5601"
+  username: "elastic"
+  password: "changeme"
